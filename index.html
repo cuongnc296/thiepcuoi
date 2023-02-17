@@ -118,10 +118,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center animate-box" data-animate-effect="fadeInUp">
-                        <h3 class="oliven-couple-title">Xin chào mọi người</h3>
+                        <h3 class="oliven-couple-title">Xin chào <span class="guess-name">mọi người</span></h3>
                         <h4 class="oliven-couple-subtitle" style="font-size: 20px">
-                            Trân trọng mời bạn tới tham dự lễ cưới của vợ chồng mình                             <br />
-                            Niềm vui của đám cưới sẽ không trọn vẹn nếu không có sự hiện diện và chúc phúc từ mọi người. Hân hạnh được đón tiếp!                            <br />
+                            Trân trọng mời <span class="guess-name">bạn</span> tới tham dự lễ cưới của vợ chồng mình                             <br />
+                            Niềm vui của đám cưới sẽ không trọn vẹn nếu không có sự hiện diện và chúc phúc từ <span class="guess-name">bạn</span>. Hân hạnh được đón tiếp!                            <br />
                                                     </h4>
                     </div>
                 </div>
@@ -606,6 +606,21 @@
                         //seconds
                     }, 0)
             }());
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+            let guessName = localStorage.getItem("guess_name");
+            console.log("local", guessName);
+            if (!guessName) {
+                guessName = params.name;
+                if (!!guessName){
+                    localStorage.setItem("guess_name", guessName);
+                } else {
+                    guessName = "Bạn"
+                }
+            }
+            console.log("guess name", guessName);
+            $(".guess-name").text(guessName);
         });
         document.querySelector("body").addEventListener("click", playmusic, {once: true});
         function playmusic() {
