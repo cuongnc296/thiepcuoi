@@ -73,7 +73,7 @@
                         <h1 class="hero-title">Lê <i class="ti-heart"></i> Cường</h1>
                         <p class="hero-subtitle"></p>
                         <div class="arrow bounce text-center">
-                            <a href="#couple"> <i class="ti-heart"></i> </a>
+                            <a href="#couple" style="color: white;"> <i class="ti-heart"></i> Kéo xuống ↓ </a>
                         </div>
                     </div>
                 </div>
@@ -610,16 +610,14 @@
                 get: (searchParams, prop) => searchParams.get(prop),
             });
             let guessName = localStorage.getItem("guess_name");
-            console.log("local", guessName);
-            if (!guessName) {
-                guessName = params.name;
-                if (!!guessName){
-                    localStorage.setItem("guess_name", guessName);
-                } else {
-                    guessName = "Bạn"
-                }
+            let paramGuessName = params.name;
+            if (!!paramGuessName) {
+                guessName = paramGuessName;
+                localStorage.setItem("guess_name", guessName);                
             }
-            console.log("guess name", guessName);
+            if (!guessName) {
+                guessName = "Bạn"
+            }
             $(".guess-name").text(guessName);
         });
         document.querySelector("body").addEventListener("click", playmusic, {once: true});

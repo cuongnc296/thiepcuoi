@@ -193,16 +193,17 @@
                     }
                 }
             }
-
             const params = new Proxy(new URLSearchParams(window.location.search), {
                 get: (searchParams, prop) => searchParams.get(prop),
             });
             let guessName = localStorage.getItem("guess_name");
+            let paramGuessName = params.name;
+            if (!!paramGuessName) {
+                guessName = paramGuessName;
+                localStorage.setItem("guess_name", guessName);                
+            }
             if (!guessName) {
-                guessName = params.name;
-                if (!!guessName){
-                    localStorage.setItem("guess_name", guessName);
-                }
+                guessName = "Bạn"
             }
             if (!!guessName){
                 $("#guess-name").val(guessName);
